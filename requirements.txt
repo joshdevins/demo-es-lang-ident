@@ -1,0 +1,5 @@
+# core
+pip==19.3.*
+
+# search
+elasticsearch==7.*
