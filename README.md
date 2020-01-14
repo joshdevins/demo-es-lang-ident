@@ -1,2 +1,3 @@
-# es-lang-ident
-Demo of Elasticsearch language identification
+# Demo: Elasticsearch Language Identification
+
+A demo of the Elasticsearch language identification for search use-cases.
