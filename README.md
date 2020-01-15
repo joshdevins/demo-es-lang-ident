@@ -6,9 +6,40 @@ A demo of the Elasticsearch language identification for search use-cases.
 
 # Setup
 
-First, make sure that you have an Elasticsearch [downloaded](https://www.elastic.co/downloads/elasticsearch) and up and running on `localhost:9200`. This demo requires a minimum of [v7.6](https://www.elastic.co/downloads/past-releases/elasticsearch-7-6-0) and a [Basic license](https://www.elastic.co/guide/en/elasticsearch/reference/current/start-basic.html).
+## Elasticsearch
 
-Next, set up the demo environment using `make all`. This will create a Python virtual environment with the required dependencies and download datasets for the demo. For more details, have a look at the targets in the `Makefile`.
+See commands below for details.
+
+1. Download and install [Elasticsearch](https://www.elastic.co/downloads/elasticsearch), v7.6 or higher, with the Basic license (default)
+1. Install language-specific analysis plugins: [Japanese](https://www.elastic.co/guide/en/elasticsearch/plugins/current/analysis-kuromoji.html) `kuromoji`, [Korean](https://www.elastic.co/guide/en/elasticsearch/plugins/current/analysis-nori.html) `nori`, [Chinese](https://www.elastic.co/guide/en/elasticsearch/plugins/current/analysis-smartcn.html) `SmartCN`  
+1. Install a [German decompounder dictionary](https://github.com/uschindler/german-decompounder)
+
+### Installation Commands
+
+Run the following commands from the base of your Elasticsearch installation.
+
+Analysis plugins:
+
+```bash
+bin/elasticsearch-plugin install analysis-kuromoji
+bin/elasticsearch-plugin install analysis-nori
+bin/elasticsearch-plugin install analysis-smartcn
+```
+
+German decompounder dictionaries:
+
+```bash
+mkdir -p config/analysis/de
+cd config/analysis/de
+wget https://raw.githubusercontent.com/uschindler/german-decompounder/master/de_DR.xml
+wget https://raw.githubusercontent.com/uschindler/german-decompounder/master/dictionary-de.txt
+```
+
+## Environment
+
+Set up the demo environment using `make all`. This will create a Python virtual environment with the required dependencies and download datasets for the demo.
+
+For more details, have a look at the targets in the `Makefile`.
 
 # Running the Demo
 

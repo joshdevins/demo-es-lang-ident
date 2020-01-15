@@ -1,0 +1,85 @@
+# simulate a language per-field and output top 3 language classes for inspection
+
+POST _ingest/pipeline/_simulate
+{
+  "pipeline": {
+    "processors": [
+      {
+        "inference": {
+          "model_id": "lang_ident_model_1",
+          "inference_config": {
+            "classification": {
+              "num_top_classes": 3
+            }
+          },
+          "field_mappings": {
+            "contents": "text"
+          },
+          "target_field": "_ml.lang_ident"
+        }
+      },
+      {
+        "rename": {
+          "field": "contents",
+          "target_field": "contents.default"
+        }
+      },
+      {
+        "rename": {
+          "field": "_ml.lang_ident.predicted_value",
+          "target_field": "contents.language"
+        }
+      },
+      {
+        "set": {
+          "if": "['de', 'en', 'ja', 'ko', 'zh'].contains(ctx.contents.language)",
+          "field": "contents.{{contents.language}}",
+          "value": "{{contents.default}}",
+          "override": false
+        }
+      }
+    ]
+  },
+  "docs": [
+    {
+      "_source": {
+        "contents": "Das leben ist kein Ponyhof"
+      }
+    },
+    {
+      "_source": {
+        "contents": "The rain in Spain stays mainly in the plains"
+      }
+    },
+    {
+      "_source": {
+        "contents": "オリンピック大会"
+      }
+    },
+    {
+      "_source": {
+        "contents": "로마는 하루아침에 이루어진 것이 아니다"
+      }
+    },
+    {
+      "_source": {
+        "contents": "授人以鱼不如授人以渔"
+      }
+    },
+    {
+      "_source": {
+        "contents": "Qui court deux lievres a la fois, n’en prend aucun"
+      }
+    },
+    {
+      "_source": {
+        "contents": "Lupus non timet canem latrantem"
+      }
+    },
+    {
+      "_source": {
+        "contents": "This is mostly English but has a touch of Latin since we often just say, Carpe diem"
+      }
+    }
+  ]
+}

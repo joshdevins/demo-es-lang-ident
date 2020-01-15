@@ -1,0 +1,44 @@
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0
+    }
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+      "contents": {
+        "properties": {
+          "language": {
+            "type": "keyword"
+          },
+          "default": {
+            "type": "text",
+            "analyzer": "default"
+          },
+          "en": {
+            "type": "text",
+            "analyzer": "english"
+          },
+          "de": {
+            "type": "text",
+            "analyzer": "german_custom"
+          },
+          "ja": {
+            "type": "text",
+            "analyzer": "kuromoji"
+          },
+          "ko": {
+            "type": "text",
+            "analyzer": "nori"
+          },
+          "zh": {
+            "type": "text",
+            "analyzer": "smartcn"
+          }
+        }
+      }
+    }
+  }
+}

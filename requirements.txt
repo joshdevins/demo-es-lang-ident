@@ -1,5 +1,8 @@
 # core
 pip==19.3.*
 
+# misc
+tqdm==4.38.*
+
 # search
 elasticsearch==7.*

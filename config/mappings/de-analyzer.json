@@ -1,0 +1,36 @@
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "german_decompounder": {
+          "type": "hyphenation_decompounder",
+          "word_list_path": "analysis/de/dictionary-de.txt",
+          "hyphenation_patterns_path": "analysis/de/de_DR.xml",
+          "only_longest_match": true,
+          "min_subword_size": 4
+        },
+        "german_stemmer": {
+          "type": "stemmer",
+          "language": "light_german"
+        },
+        "german_stop": {
+          "type": "stop",
+          "stopwords": "_german_"
+        }
+      },
+      "analyzer": {
+        "german_custom": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "german_decompounder",
+            "german_normalization",
+            "german_stemmer",
+            "german_stop"
+          ]
+        }
+      }
+    }
+  }
+}

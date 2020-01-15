@@ -1,0 +1,41 @@
+{
+  "processors": [
+    {
+      "inference": {
+        "model_id": "lang_ident_model_1",
+        "inference_config": {
+          "classification": {}
+        },
+        "field_mappings": {
+          "contents": "text"
+        },
+        "target_field": "_ml.lang_ident"
+      }
+    },
+    {
+      "rename": {
+        "field": "contents",
+        "target_field": "contents.default"
+      }
+    },
+    {
+      "rename": {
+        "field": "_ml.lang_ident.predicted_value",
+        "target_field": "contents.language"
+      }
+    },
+    {
+      "set": {
+        "if": "['de', 'en', 'ja', 'ko', 'zh'].contains(ctx.contents.language)",
+        "field": "contents.{{contents.language}}",
+        "value": "{{contents.default}}",
+        "override": false
+      }
+    },
+    {
+      "remove": {
+        "field": "_ml"
+      }
+    }
+  ]
+}

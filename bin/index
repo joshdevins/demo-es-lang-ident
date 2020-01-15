@@ -1,0 +1,205 @@
+#!venv/bin/python
+
+"""
+A script to index documents for the language identification search demo. This
+will index the same documents in multiple ways in order to demonstrate the
+various indexing and search strategies. By default, this will use the
+WiLI-2018 training set corpus.
+
+Note that when sampling from the corpus, the same documents will be indexed
+in all the various strategies in order to make valid comparisons. This means
+that we load documents into memory before indexing.
+"""
+
+import argparse
+import copy
+import json
+import os
+import random
+
+from elasticsearch import Elasticsearch, helpers
+from timeit import default_timer as timer
+
+ANALYZERS = {
+    'de': 'german_custom',
+    'en': 'english',
+    'ja': 'kuromoji',
+    'ko': 'nori',
+    'zh': 'smartcn',
+}
+DEFAULT_CORPUS = os.path.join('data', 'WiLI-2018', 'x_train.txt')
+DEFAULT_SAMPLE_SIZE = None
+DEFAULT_SAMPLE_PROPORTION = None
+DEFAULT_URL = 'http://localhost:9200'
+STRATEGIES = ['lang-per-field', 'lang-per-index']
+
+
+class Timer:
+    def __enter__(self):
+        self.start = timer()
+        return self
+
+    def __exit__(self, *args):
+        self.end = timer()
+        self.interval = self.end - self.start
+
+
+def load_mapping(name):
+    with open(os.path.join('config', 'mappings', f'{name}.json'), 'r') as f:
+        return json.load(f)
+
+
+def load_german_analyzer():
+    with open(os.path.join('config', 'mappings', 'de-analyzer.json'), 'r') as f:
+        return json.load(f)
+
+
+def recreate_per_field_index(es):
+    """Recreates the index settings and mappings for the language per-field strategy."""
+
+    index = 'lang-per-field'
+    mapping = load_mapping(index)
+
+    # inject the german analyzer stanza
+    mapping['settings']['analysis'] = load_german_analyzer()['settings']['analysis']
+
+    print(f"Recreating index for strategy: {index}")
+    es.indices.delete(index=index, ignore=404)
+    es.indices.create(index=index, body=mapping)
+
+
+def recreate_per_index_indices(es):
+    """Recreates the index settings and mappings for the language per-index strategy."""
+
+    def create(lang, index, analyzer):
+        body = copy.deepcopy(mapping)
+
+        if lang == 'de':
+            # inject the german analyzer stanza
+            body['settings']['analysis'] = load_german_analyzer()['settings']['analysis']
+
+        # set the analyzer on the text field based on language of the index
+        body['mappings']['properties']['contents']['properties']['text']['analyzer'] = analyzer
+
+        print(f" - {index}")
+        es.indices.delete(index=index, ignore=404)
+        es.indices.create(index=index, body=body)
+
+    strategy = 'lang-per-index'
+    mapping = load_mapping(strategy)
+    print(f"Recreating indices for strategy: {strategy}")
+
+    # create the default index for unsupported languages
+    create(None, strategy, 'default')
+
+    for lang, analyzer in ANALYZERS.items():
+        create(lang, f'{strategy}_{lang}', analyzer)
+
+
+def recreate_pipeline(es, id):
+    """Recreates a pipeline of the given pipeline ID."""
+    def body():
+        with open(os.path.join('config', 'pipelines', f'{id}.json'), 'r') as f:
+            return json.load(f)
+
+    print(f"Recreating pipeline: {id}")
+    es.ingest.delete_pipeline(id=id, ignore=404)
+    es.ingest.put_pipeline(id=id, body=body())
+
+
+def load_corpus(filename, sample_size=None, sample_proportion=None):
+    """
+    Loads the given corpus from disk into memory, with or without sampling. Sample size always takes precedence if both
+    sampling arguments are provided.
+    """
+
+    print(f"Loading corpus: {filename}")
+
+    with open(filename, 'r') as f:
+        corpus = f.readlines()
+
+    print(f" - size: {len(corpus)}")
+
+    if sample_proportion and not sample_size:
+        print(f" - sample proportion: {sample_proportion * 100:.01f}%")
+        sample_size = round(sample_proportion * len(corpus))
+
+    if sample_size or sample_proportion:
+        print(f" - sample size: {sample_size}")
+        corpus = random.sample(corpus, sample_size)
+
+    return corpus
+
+
+def index_docs(es, index, corpus):
+    """
+    Indexes all documents in the corpus to the given index. Indexing will use the pipeline of the same name as the
+    index.
+    """
+
+    def action(doc):
+        return {
+            '_index': index,
+            'pipeline': index,
+            '_source': {'contents': doc},
+        }
+
+    print(f"Indexing {len(corpus)} documents into '{index}'")
+    actions = [action(doc) for doc in corpus]
+    with Timer() as t:
+        # index in bulk with large chunks since the documents are very small, and a big timeout to just get it done
+        helpers.bulk(es, actions, chunk_size=10000, request_timeout=600, refresh='wait_for')
+    print(f" - duration: {t.interval:.04f} sec")
+
+
+def print_statistics(es):
+    """Prints statistics about all indices."""
+
+    def p(indices, index):
+        count = indices[index]['total']['docs']['count']
+        print(f" - {index}: {count}")
+
+    stats = es.indices.stats(index='lang-*')
+    print(f"Index statistics:")
+
+    total = stats['_all']['total']['docs']['count']
+    print(f" - total docs: {total}")
+
+    indices = stats['indices']
+    p(indices, 'lang-per-field')
+    p(indices, 'lang-per-index')
+    for lang in ANALYZERS.keys():
+        p(indices, f'lang-per-index_{lang}')
+
+
+def main():
+    parser = argparse.ArgumentParser(prog='index')
+    parser.add_argument('--url', default=DEFAULT_URL, help="An Elasticsearch connection URL, e.g. http://user:secret@localhost:9200")
+    parser.add_argument('--corpus', default=DEFAULT_CORPUS, help="Corpus to index, in a line delimited plain text file")
+
+    sampling_group = parser.add_argument_group("sampling options", "Randomly sample documents from the source corpus to speed up indexing")
+    sampling_mxg = sampling_group.add_mutually_exclusive_group()
+    sampling_mxg.add_argument('--sample-size', type=int, default=DEFAULT_SAMPLE_SIZE, help="Sample by size (approximate), e.g. 1000")
+    sampling_mxg.add_argument('--sample-proportion', type=float, default=DEFAULT_SAMPLE_PROPORTION, help="Sample by proportion, e.g. 0.1")
+
+    args = parser.parse_args()
+
+    es = Elasticsearch(args.url)
+
+    recreate_per_field_index(es)
+    recreate_per_index_indices(es)
+
+    for s in STRATEGIES:
+        recreate_pipeline(es, s)
+
+    # load corpus into memory so that if we are sampling, we index the same documents in all strategies
+    corpus = load_corpus(args.corpus, args.sample_size, args.sample_proportion)
+
+    for s in STRATEGIES:
+        index_docs(es, s, corpus)
+
+    print_statistics(es)
+
+
+if __name__ == "__main__":
+    main()
