@@ -31,8 +31,14 @@ POST _ingest/pipeline/_simulate
         }
       },
       {
+        "script": {
+          "lang": "painless",
+          "source": "ctx.contents.supported = (['de', 'en', 'ja', 'ko', 'zh'].contains(ctx.contents.language))"
+        }
+      },
+      {
         "set": {
-          "if": "['de', 'en', 'ja', 'ko', 'zh'].contains(ctx.contents.language)",
+          "if": "ctx.contents.supported",
           "field": "contents.{{contents.language}}",
           "value": "{{contents.default}}",
           "override": false

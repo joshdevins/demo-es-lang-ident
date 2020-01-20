@@ -5,10 +5,6 @@ A script to index documents for the language identification search demo. This
 will index the same documents in multiple ways in order to demonstrate the
 various indexing and search strategies. By default, this will use the
 WiLI-2018 training set corpus.
-
-Note that when sampling from the corpus, the same documents will be indexed
-in all the various strategies in order to make valid comparisons. This means
-that we load documents into memory before indexing.
 """
 
 import argparse
@@ -28,8 +24,7 @@ ANALYZERS = {
     'zh': 'smartcn',
 }
 DEFAULT_CORPUS = os.path.join('data', 'WiLI-2018', 'x_train.txt')
-DEFAULT_SAMPLE_SIZE = None
-DEFAULT_SAMPLE_PROPORTION = None
+DEFAULT_MAX = None
 DEFAULT_URL = 'http://localhost:9200'
 STRATEGIES = ['lang-per-field', 'lang-per-index']
 
@@ -42,6 +37,14 @@ class Timer:
     def __exit__(self, *args):
         self.end = timer()
         self.interval = self.end - self.start
+
+
+def file_length(filename):
+    """
+    Count the number of lines in a file.
+    See: https://gist.github.com/zed/0ac760859e614cd03652#file-gistfile1-py-L48-L49
+    """
+    return sum(1 for _ in open(filename, 'r'))
 
 
 def load_mapping(name):
@@ -107,48 +110,38 @@ def recreate_pipeline(es, id):
     es.ingest.put_pipeline(id=id, body=body())
 
 
-def load_corpus(filename, sample_size=None, sample_proportion=None):
+def index_docs(es, index, corpus, max_num_docs=None):
     """
-    Loads the given corpus from disk into memory, with or without sampling. Sample size always takes precedence if both
-    sampling arguments are provided.
-    """
-
-    print(f"Loading corpus: {filename}")
-
-    with open(filename, 'r') as f:
-        corpus = f.readlines()
-
-    print(f" - size: {len(corpus)}")
-
-    if sample_proportion and not sample_size:
-        print(f" - sample proportion: {sample_proportion * 100:.01f}%")
-        sample_size = round(sample_proportion * len(corpus))
-
-    if sample_size or sample_proportion:
-        print(f" - sample size: {sample_size}")
-        corpus = random.sample(corpus, sample_size)
-
-    return corpus
-
-
-def index_docs(es, index, corpus):
-    """
-    Indexes all documents in the corpus to the given index. Indexing will use the pipeline of the same name as the
-    index.
+    Indexes all documents in the corpus to the given index (up to `max`). Indexing will use the pipeline of the same
+    name as the index.
     """
 
-    def action(doc):
-        return {
-            '_index': index,
-            'pipeline': index,
-            '_source': {'contents': doc},
-        }
+    def actions(limit):
+        counter = 0
+        with open(corpus, 'r') as f:
+            for line in f:
+                if max_num_docs and counter >= limit:
+                    break
 
-    print(f"Indexing {len(corpus)} documents into '{index}'")
-    actions = [action(doc) for doc in corpus]
+                counter += 1
+                yield {
+                    '_index': index,
+                    'pipeline': index,
+                    '_source': {'contents': line},
+                }
+
+    num_docs = file_length(corpus)
+
+    print(f"Indexing documents into '{index}'")
+    print(f" - corpus size: {num_docs}")
+
+    if max_num_docs:
+        max_num_docs = min(max_num_docs, num_docs)
+        print(f" - number of docs to index: {max_num_docs}")
+
     with Timer() as t:
         # index in bulk with large chunks since the documents are very small, and a big timeout to just get it done
-        helpers.bulk(es, actions, chunk_size=10000, request_timeout=600, refresh='wait_for')
+        helpers.bulk(es, actions(max_num_docs), chunk_size=10000, request_timeout=600, refresh='wait_for')
     print(f" - duration: {t.interval:.04f} sec")
 
 
@@ -176,12 +169,7 @@ def main():
     parser = argparse.ArgumentParser(prog='index')
     parser.add_argument('--url', default=DEFAULT_URL, help="An Elasticsearch connection URL, e.g. http://user:secret@localhost:9200")
     parser.add_argument('--corpus', default=DEFAULT_CORPUS, help="Corpus to index, in a line delimited plain text file")
-
-    sampling_group = parser.add_argument_group("sampling options", "Randomly sample documents from the source corpus to speed up indexing")
-    sampling_mxg = sampling_group.add_mutually_exclusive_group()
-    sampling_mxg.add_argument('--sample-size', type=int, default=DEFAULT_SAMPLE_SIZE, help="Sample by size (approximate), e.g. 1000")
-    sampling_mxg.add_argument('--sample-proportion', type=float, default=DEFAULT_SAMPLE_PROPORTION, help="Sample by proportion, e.g. 0.1")
-
+    parser.add_argument('--max', type=int, default=DEFAULT_MAX, help="The maximum number of corpus documents to index, e.g. 1000")
     args = parser.parse_args()
 
     es = Elasticsearch(args.url)
@@ -192,11 +180,8 @@ def main():
     for s in STRATEGIES:
         recreate_pipeline(es, s)
 
-    # load corpus into memory so that if we are sampling, we index the same documents in all strategies
-    corpus = load_corpus(args.corpus, args.sample_size, args.sample_proportion)
-
     for s in STRATEGIES:
-        index_docs(es, s, corpus)
+        index_docs(es, s, args.corpus, args.max)
 
     print_statistics(es)
 

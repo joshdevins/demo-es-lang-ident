@@ -13,9 +13,18 @@
           "language": {
             "type": "keyword"
           },
+          "supported": {
+            "type": "boolean"
+          },
           "default": {
             "type": "text",
-            "analyzer": "default"
+            "analyzer": "default",
+            "fields": {
+              "icu": {
+                "type": "text",
+                "analyzer": "icu_analyzer"
+              }
+            }
           },
           "en": {
             "type": "text",
