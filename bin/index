@@ -5,13 +5,19 @@ A script to index documents for the language identification search demo. This
 will index the same documents in multiple ways in order to demonstrate the
 various indexing and search strategies. By default, this will use the
 WiLI-2018 training set corpus.
+
+Due to duplicate strings in the dataset, it will also calculate a hash of
+the text to use as document ID, ensuring no duplicate text is in the index.
+In order to ensure that we index the number of requested documents, we will
+maintain an in-memory list of index document IDs, which are hashes of the
+contents.
 """
 
 import argparse
 import copy
+import hashlib
 import json
 import os
-import random
 
 from elasticsearch import Elasticsearch, helpers
 from timeit import default_timer as timer
@@ -118,17 +124,23 @@ def index_docs(es, index, corpus, max_num_docs=None):
 
     def actions(limit):
         counter = 0
+        ids = set()
         with open(corpus, 'r') as f:
             for line in f:
                 if max_num_docs and counter >= limit:
                     break
 
-                counter += 1
-                yield {
-                    '_index': index,
-                    'pipeline': index,
-                    '_source': {'contents': line},
-                }
+                # ensure no duplicate documents
+                id = hashlib.md5(line.encode()).hexdigest()
+                if id not in ids:
+                    counter += 1
+                    ids.add(id)
+                    yield {
+                        '_index': index,
+                        '_id': id,
+                        'pipeline': index,
+                        '_source': {'contents': line},
+                    }
 
     num_docs = file_length(corpus)
 
