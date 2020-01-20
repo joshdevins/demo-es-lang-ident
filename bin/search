@@ -28,7 +28,6 @@ def search_by_fields(es, query):
         "query": {
             "multi_match": {
                 "query": query,
-                "type": "best_fields",
                 "fields": [
                     "contents.de",
                     "contents.en",
@@ -81,12 +80,11 @@ def main():
 
     print(f"Got {results['hits']['total']['value']} hits")
     if results['hits']['hits']:
-        print("  [no] [score] [lang] > contents")
+        print("  [no] [id] [score] [lang] > contents")
         print("  ------------------------------\n")
         for index, hit in enumerate(results['hits']['hits']):
             c = hit['_source']['contents']
-            print(f"  [{index+1:2}] [{hit['_score']:.3f}] [{c['language']:4}] > {c[contents_key]}")
-
+            print(f"  [{index+1:2}] [{hit['_id']}] [{hit['_score']:6.3f}] [{c['language']}] > {c[contents_key]}")
 
 
 if __name__ == "__main__":

@@ -42,9 +42,66 @@ Set up the demo environment using `make all`. This will create a Python virtual 
 
 For more details, have a look at the targets in the `Makefile`.
 
-# Running the Demo
+# Demo
+
+## Setup
 
 The demo contains two scripts: `bin/index` for indexing and `bin/search` for searching. Use the `--help` option to see instructions and available options for each script.
+
+To setup the demo, run `bin/index` either with all documents (default) or you can choose to index a subset of the documents. For the purposes of the following examples, we index just the first 10k documents: `bin/index --max 10000`
+
+## Examples
+
+### German Decompounding
+
+Due to the way the German language compounds words into larger words, special analysis is required to break them up into constituent parts for searching. Try searching for the term "jahr" (meaning "year") and you will see the results of per-language analysis.
+
+```
+# only matching exactly on the term "jahr"
+bin/search --strategy default jahr
+
+# matches: "jahr", "jahre", "jahren", "jahrhunderts", etc.
+bin/search --strategy per-field jahr
+```
+
+### Common Term
+
+Some domains use English or Latin terminology. Trying search for the term "computer".
+
+```
+# only matching exactly on the term "computer", but multiple languages are in the results
+bin/search --strategy default computer
+
+# matches compound German words as well: "Computersicherheit" (computer security)
+bin/search --strategy per-field computer
+```
+
+### Non-Latin Scripts
+
+Of course it's easy to see how Latin scripts can work even when just using the default or ICU analyzers. However for non-Latin scripts such as CJK (Chinese/Japanese/Korean), we really don't get any good results. Let's try searching for some common Japanese terms and see how our per-language analysis helps.
+
+```
+# standard analyzer gets poor precision and returns irrelevant/non-matching results with "network"/"internet": "网络"
+bin/search --strategy default 网络
+
+# ICU and language-specific analysis gets things right, but note the different scores
+bin/search --strategy icu 网络
+bin/search --strategy per-field 网络
+```
+
+### Per-Field or Per-Index
+
+Let's compare the scores of per-field and per-index strategies. Note how sometimes the order is different even if the scores are almost exactly the same. In some cases, this can impact search relevance metrics such as nDCG and precision@k. Choose your strategy accordingly!
+
+```
+# English tokens: order unchanged
+bin/search --strategy per-field networking
+bin/search --strategy per-index networking
+
+# Mixed-use tokens: order differs (last item)
+bin/search --strategy per-field university
+bin/search --strategy per-index university
+```
 
 # TODO
 
@@ -52,7 +109,7 @@ Either just as examples in console scripts or in the actual demo:
 
 - Set the top languages above a threshold into a field (for UI faceting/filtering)
 - Combine multiple fields into a single field in order to choose the language, and optionally then use it to search over (an `all` field) or just do "language per-field" again
-- Map script-common languages into a single field, e.g. mapping Chinese, Japanese, and Korean to `cjk` field and analyzer
+- Map script-common languages into a single field, e.g. mapping Chinese, Japanese, and Korean to `cjk` field and analyzer <-- in Olympics example
 - Choose predominant language only if the top class is above a threshold (e.g. 60% or 50%)
 
 # License
