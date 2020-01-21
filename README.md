@@ -103,15 +103,6 @@ bin/search --strategy per-field university
 bin/search --strategy per-index university
 ```
 
-# TODO
-
-Either just as examples in console scripts or in the actual demo:
-
-- Set the top languages above a threshold into a field (for UI faceting/filtering)
-- Combine multiple fields into a single field in order to choose the language, and optionally then use it to search over (an `all` field) or just do "language per-field" again
-- Map script-common languages into a single field, e.g. mapping Chinese, Japanese, and Korean to `cjk` field and analyzer <-- in Olympics example
-- Choose predominant language only if the top class is above a threshold (e.g. 60% or 50%)
-
 # License
 
 ```
