@@ -1,0 +1,103 @@
+{
+  "docs" : [
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : "Das leben ist kein Ponyhof",
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "de",
+                  "class_probability" : 0.9996006023972855
+                },
+                {
+                  "class_name" : "el-Latn",
+                  "class_probability" : 2.625873919853074E-4
+                },
+                {
+                  "class_name" : "ru-Latn",
+                  "class_probability" : 1.130237050226503E-4
+                }
+              ],
+              "predicted_value" : "de",
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:38:13.810179Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : "The rain in Spain stays mainly in the plains",
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "en",
+                  "class_probability" : 0.9988809847231199
+                },
+                {
+                  "class_name" : "ga",
+                  "class_probability" : 7.764148026288316E-4
+                },
+                {
+                  "class_name" : "gd",
+                  "class_probability" : 7.968926766495827E-5
+                }
+              ],
+              "predicted_value" : "en",
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:38:13.810185Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : "This is mostly English but has a touch of Latin since we often just say, Carpe diem",
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "en",
+                  "class_probability" : 0.9997901768317939
+                },
+                {
+                  "class_name" : "ja",
+                  "class_probability" : 8.756250766054857E-5
+                },
+                {
+                  "class_name" : "fil",
+                  "class_probability" : 1.6980752372837307E-5
+                }
+              ],
+              "predicted_value" : "en",
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:38:13.810189Z"
+        }
+      }
+    }
+  ]
+}

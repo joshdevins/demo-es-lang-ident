@@ -1,0 +1,290 @@
+{
+  "docs" : [
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "de" : "Das leben ist kein Ponyhof",
+            "language" : "de",
+            "supported" : true
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "de",
+                  "class_probability" : 0.9996006023972855
+                },
+                {
+                  "class_name" : "el-Latn",
+                  "class_probability" : 2.625873919853074E-4
+                },
+                {
+                  "class_name" : "ru-Latn",
+                  "class_probability" : 1.130237050226503E-4
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:46:38.071147Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "en" : "The rain in Spain stays mainly in the plains",
+            "language" : "en",
+            "supported" : true
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "en",
+                  "class_probability" : 0.9988809847231199
+                },
+                {
+                  "class_name" : "ga",
+                  "class_probability" : 7.764148026288316E-4
+                },
+                {
+                  "class_name" : "gd",
+                  "class_probability" : 7.968926766495827E-5
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:46:38.071157Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "ja",
+            "ja" : "オリンピック大会",
+            "supported" : true
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "ja",
+                  "class_probability" : 0.9993823252841599
+                },
+                {
+                  "class_name" : "el",
+                  "class_probability" : 2.6448654791599055E-4
+                },
+                {
+                  "class_name" : "sd",
+                  "class_probability" : 1.4846805271384584E-4
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:46:38.071159Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "ko" : "로마는 하루아침에 이루어진 것이 아니다",
+            "language" : "ko",
+            "supported" : true
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "ko",
+                  "class_probability" : 0.9999939196272863
+                },
+                {
+                  "class_name" : "ka",
+                  "class_probability" : 3.0431805047662344E-6
+                },
+                {
+                  "class_name" : "am",
+                  "class_probability" : 1.710514725818281E-6
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:46:38.071165Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "zh",
+            "zh" : "授人以鱼不如授人以渔",
+            "supported" : true
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "zh",
+                  "class_probability" : 0.9999810103320087
+                },
+                {
+                  "class_name" : "ja",
+                  "class_probability" : 1.0390454083183788E-5
+                },
+                {
+                  "class_name" : "ka",
+                  "class_probability" : 2.6302271562335787E-6
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:46:38.071168Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "fr",
+            "supported" : false
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "fr",
+                  "class_probability" : 0.9999669852240882
+                },
+                {
+                  "class_name" : "gd",
+                  "class_probability" : 2.3485226102079597E-5
+                },
+                {
+                  "class_name" : "ht",
+                  "class_probability" : 3.536708810360631E-6
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:46:38.07117Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "la",
+            "supported" : false
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "la",
+                  "class_probability" : 0.614050940088811
+                },
+                {
+                  "class_name" : "fr",
+                  "class_probability" : 0.32530021315840363
+                },
+                {
+                  "class_name" : "sq",
+                  "class_probability" : 0.03353817054854559
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:46:38.071172Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "en" : "This is mostly English but has a touch of Latin since we often just say, Carpe diem",
+            "language" : "en",
+            "supported" : true
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "en",
+                  "class_probability" : 0.9997901768317939
+                },
+                {
+                  "class_name" : "ja",
+                  "class_probability" : 8.756250766054857E-5
+                },
+                {
+                  "class_name" : "fil",
+                  "class_probability" : 1.6980752372837307E-5
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:46:38.071174Z"
+        }
+      }
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-A demo of the Elasticsearch language identification for search use-cases.
+A demo of the Elasticsearch language identification for search use-cases, using the [WiLI-2018 corpus](https://arxiv.org/abs/1801.07779) (or a corpus of your choosing).
 
 # Setup
 

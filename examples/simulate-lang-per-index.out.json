@@ -1,0 +1,284 @@
+{
+  "docs" : [
+    {
+      "doc" : {
+        "_index" : "_index_de",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "de",
+            "text" : "Das leben ist kein Ponyhof"
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "de",
+                  "class_probability" : 0.9996006023972855
+                },
+                {
+                  "class_name" : "el-Latn",
+                  "class_probability" : 2.625873919853074E-4
+                },
+                {
+                  "class_name" : "ru-Latn",
+                  "class_probability" : 1.130237050226503E-4
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:41:48.486009Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index_en",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "en",
+            "text" : "The rain in Spain stays mainly in the plains"
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "en",
+                  "class_probability" : 0.9988809847231199
+                },
+                {
+                  "class_name" : "ga",
+                  "class_probability" : 7.764148026288316E-4
+                },
+                {
+                  "class_name" : "gd",
+                  "class_probability" : 7.968926766495827E-5
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:41:48.486037Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index_ja",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "ja",
+            "text" : "オリンピック大会"
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "ja",
+                  "class_probability" : 0.9993823252841599
+                },
+                {
+                  "class_name" : "el",
+                  "class_probability" : 2.6448654791599055E-4
+                },
+                {
+                  "class_name" : "sd",
+                  "class_probability" : 1.4846805271384584E-4
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:41:48.486039Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index_ko",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "ko",
+            "text" : "로마는 하루아침에 이루어진 것이 아니다"
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "ko",
+                  "class_probability" : 0.9999939196272863
+                },
+                {
+                  "class_name" : "ka",
+                  "class_probability" : 3.0431805047662344E-6
+                },
+                {
+                  "class_name" : "am",
+                  "class_probability" : 1.710514725818281E-6
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:41:48.486041Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index_zh",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "zh",
+            "text" : "授人以鱼不如授人以渔"
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "zh",
+                  "class_probability" : 0.9999810103320087
+                },
+                {
+                  "class_name" : "ja",
+                  "class_probability" : 1.0390454083183788E-5
+                },
+                {
+                  "class_name" : "ka",
+                  "class_probability" : 2.6302271562335787E-6
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:41:48.486043Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "fr",
+            "text" : "Qui court deux lievres a la fois, n’en prend aucun"
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "fr",
+                  "class_probability" : 0.9999669852240882
+                },
+                {
+                  "class_name" : "gd",
+                  "class_probability" : 2.3485226102079597E-5
+                },
+                {
+                  "class_name" : "ht",
+                  "class_probability" : 3.536708810360631E-6
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:41:48.486044Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "la",
+            "text" : "Lupus non timet canem latrantem"
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "la",
+                  "class_probability" : 0.614050940088811
+                },
+                {
+                  "class_name" : "fr",
+                  "class_probability" : 0.32530021315840363
+                },
+                {
+                  "class_name" : "sq",
+                  "class_probability" : 0.03353817054854559
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:41:48.486046Z"
+        }
+      }
+    },
+    {
+      "doc" : {
+        "_index" : "_index_en",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "contents" : {
+            "language" : "en",
+            "text" : "This is mostly English but has a touch of Latin since we often just say, Carpe diem"
+          },
+          "_ml" : {
+            "lang_ident" : {
+              "top_classes" : [
+                {
+                  "class_name" : "en",
+                  "class_probability" : 0.9997901768317939
+                },
+                {
+                  "class_name" : "ja",
+                  "class_probability" : 8.756250766054857E-5
+                },
+                {
+                  "class_name" : "fil",
+                  "class_probability" : 1.6980752372837307E-5
+                }
+              ],
+              "model_id" : "lang_ident_model_1"
+            }
+          }
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-21T14:41:48.48605Z"
+        }
+      }
+    }
+  ]
+}

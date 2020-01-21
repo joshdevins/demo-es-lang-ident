@@ -43,6 +43,11 @@ POST _ingest/pipeline/_simulate
           "value": "{{contents.default}}",
           "override": false
         }
+      },
+      {
+        "remove": {
+          "field": "contents.default"
+        }
       }
     ]
   },

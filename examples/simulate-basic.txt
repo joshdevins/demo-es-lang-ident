@@ -33,31 +33,6 @@ POST _ingest/pipeline/_simulate
     },
     {
       "_source": {
-        "contents": "オリンピック大会"
-      }
-    },
-    {
-      "_source": {
-        "contents": "로마는 하루아침에 이루어진 것이 아니다"
-      }
-    },
-    {
-      "_source": {
-        "contents": "授人以鱼不如授人以渔"
-      }
-    },
-    {
-      "_source": {
-        "contents": "Qui court deux lievres a la fois, n’en prend aucun"
-      }
-    },
-    {
-      "_source": {
-        "contents": "Lupus non timet canem latrantem"
-      }
-    },
-    {
-      "_source": {
         "contents": "This is mostly English but has a touch of Latin since we often just say, Carpe diem"
       }
     }
