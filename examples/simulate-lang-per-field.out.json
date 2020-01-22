@@ -8,6 +8,7 @@
         "_source" : {
           "contents" : {
             "de" : "Das leben ist kein Ponyhof",
+            "default" : "Das leben ist kein Ponyhof",
             "language" : "de",
             "supported" : true
           },
@@ -32,7 +33,7 @@
           }
         },
         "_ingest" : {
-          "timestamp" : "2020-01-21T14:46:38.071147Z"
+          "timestamp" : "2020-01-22T12:40:03.218641Z"
         }
       }
     },
@@ -44,6 +45,7 @@
         "_source" : {
           "contents" : {
             "en" : "The rain in Spain stays mainly in the plains",
+            "default" : "The rain in Spain stays mainly in the plains",
             "language" : "en",
             "supported" : true
           },
@@ -68,7 +70,7 @@
           }
         },
         "_ingest" : {
-          "timestamp" : "2020-01-21T14:46:38.071157Z"
+          "timestamp" : "2020-01-22T12:40:03.218646Z"
         }
       }
     },
@@ -79,6 +81,7 @@
         "_id" : "_id",
         "_source" : {
           "contents" : {
+            "default" : "オリンピック大会",
             "language" : "ja",
             "ja" : "オリンピック大会",
             "supported" : true
@@ -104,7 +107,7 @@
           }
         },
         "_ingest" : {
-          "timestamp" : "2020-01-21T14:46:38.071159Z"
+          "timestamp" : "2020-01-22T12:40:03.218648Z"
         }
       }
     },
@@ -115,8 +118,9 @@
         "_id" : "_id",
         "_source" : {
           "contents" : {
-            "ko" : "로마는 하루아침에 이루어진 것이 아니다",
+            "default" : "로마는 하루아침에 이루어진 것이 아니다",
             "language" : "ko",
+            "ko" : "로마는 하루아침에 이루어진 것이 아니다",
             "supported" : true
           },
           "_ml" : {
@@ -140,7 +144,7 @@
           }
         },
         "_ingest" : {
-          "timestamp" : "2020-01-21T14:46:38.071165Z"
+          "timestamp" : "2020-01-22T12:40:03.218649Z"
         }
       }
     },
@@ -151,6 +155,7 @@
         "_id" : "_id",
         "_source" : {
           "contents" : {
+            "default" : "授人以鱼不如授人以渔",
             "language" : "zh",
             "zh" : "授人以鱼不如授人以渔",
             "supported" : true
@@ -176,7 +181,7 @@
           }
         },
         "_ingest" : {
-          "timestamp" : "2020-01-21T14:46:38.071168Z"
+          "timestamp" : "2020-01-22T12:40:03.21865Z"
         }
       }
     },
@@ -187,6 +192,7 @@
         "_id" : "_id",
         "_source" : {
           "contents" : {
+            "default" : "Qui court deux lievres a la fois, n’en prend aucun",
             "language" : "fr",
             "supported" : false
           },
@@ -211,7 +217,7 @@
           }
         },
         "_ingest" : {
-          "timestamp" : "2020-01-21T14:46:38.07117Z"
+          "timestamp" : "2020-01-22T12:40:03.218652Z"
         }
       }
     },
@@ -222,6 +228,7 @@
         "_id" : "_id",
         "_source" : {
           "contents" : {
+            "default" : "Lupus non timet canem latrantem",
             "language" : "la",
             "supported" : false
           },
@@ -246,7 +253,7 @@
           }
         },
         "_ingest" : {
-          "timestamp" : "2020-01-21T14:46:38.071172Z"
+          "timestamp" : "2020-01-22T12:40:03.218653Z"
         }
       }
     },
@@ -258,6 +265,7 @@
         "_source" : {
           "contents" : {
             "en" : "This is mostly English but has a touch of Latin since we often just say, Carpe diem",
+            "default" : "This is mostly English but has a touch of Latin since we often just say, Carpe diem",
             "language" : "en",
             "supported" : true
           },
@@ -282,7 +290,7 @@
           }
         },
         "_ingest" : {
-          "timestamp" : "2020-01-21T14:46:38.071174Z"
+          "timestamp" : "2020-01-22T12:40:03.218654Z"
         }
       }
     }
