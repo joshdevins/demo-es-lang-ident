@@ -6,6 +6,13 @@ A demo of the Elasticsearch language identification for search use-cases, using 
 
 # Setup
 
+## Prerequisites
+
+To run the demo, aside from Elasticsearch, you'll need:
+
+1. [Python 3.x](https://www.python.org/downloads/)
+1. Linux/macOS tools: `make` and `wget`
+
 ## Elasticsearch
 
 See commands below for details.
@@ -44,13 +51,13 @@ For more details, have a look at the targets in the `Makefile`.
 
 # Demo
 
-## Setup
-
 The demo contains two scripts: `bin/index` for indexing and `bin/search` for searching. Use the `--help` option to see instructions and available options for each script.
 
-To setup the demo, run `bin/index` either with all documents (default) or you can choose to index a subset of the documents. For the purposes of the following examples, we index just the first 10k documents: `bin/index --max 10000`
+## Indexing
 
-## Examples
+To index documents for the demo, run `bin/index` either with all documents (default) or you can choose to index a subset of the documents. For the purposes of the following examples, we index just the first 10k documents: `bin/index --max 10000`
+
+## Search Examples
 
 ### German Decompounding
 
