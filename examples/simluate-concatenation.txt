@@ -1,0 +1,77 @@
+# simulate concatenating multiple fields into a single temporoary field only for language identification
+
+POST _ingest/pipeline/_simulate
+{
+  "pipeline": {
+    "processors": [
+      {
+        "join": {
+          "field": "topics",
+          "target_field": "tmp.topics",
+          "separator": ", "
+        }
+      },
+      {
+        "set": {
+          "field": "tmp.contents",
+          "value": "{{title}}. {{topics}}. {{body}}"
+        }
+      },
+      {
+        "inference": {
+          "model_id": "lang_ident_model_1",
+          "inference_config": {
+            "classification": {
+              "num_top_classes": 3
+            }
+          },
+          "field_mappings": {
+            "tmp.contents": "text"
+          },
+          "target_field": "_ml.lang_ident"
+        }
+      },
+      {
+        "rename": {
+          "field": "_ml.lang_ident.predicted_value",
+          "target_field": "language.code"
+        }
+      },
+      {
+        "script": {
+          "lang": "painless",
+          "source": "ctx.language.supported = (['de', 'en', 'ja', 'ko', 'zh'].contains(ctx.language.code))"
+        }
+      },
+      {
+        "set": {
+          "if": "ctx.language.supported",
+          "field": "body_by_lang.{{language.code}}",
+          "value": "{{body}}",
+          "override": false
+        }
+      },
+      {
+        "remove": {
+          "field": ["tmp", "_ml"]
+        }
+      }
+    ]
+  },
+  "docs": [
+    {
+      "_source": {
+        "title": "The Rain in Spain",
+        "url": "https://en.wikipedia.org/wiki/The_Rain_in_Spain",
+        "topics": [
+          "Song",
+          "Movie",
+          "Soundtrack",
+          "Musical",
+          "My Fair Lady"
+        ],
+        "body": """"The Rain in Spain" is a song from the musical My Fair Lady, with music by Frederick Loewe and lyrics by Alan Jay Lerner. The song was published in 1956, sounding similar to piano trio in C minor 3rd movement by Josep Suk."""
+      }
+    }
+  ]
+}

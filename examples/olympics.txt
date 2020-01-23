@@ -92,11 +92,8 @@ POST _bulk
 GET /olympics/_search
 {
   "query": {
-    "multi_match": {
-      "query": "올림픽대회",
-      "fields": [
-        "contents.default"
-      ]
+    "match": {
+      "contents.default": "올림픽대회"
     }
   }
 }
@@ -105,11 +102,8 @@ GET /olympics/_search
 GET /olympics/_search
 {
   "query": {
-    "multi_match": {
-      "query": "Olympic Games",
-      "fields": [
-        "contents.default"
-      ]
+    "match": {
+      "contents.default": "Olympic Games"
     }
   }
 }
@@ -118,11 +112,8 @@ GET /olympics/_search
 GET /olympics/_search
 {
   "query": {
-    "multi_match": {
-      "query": "オリンピック大会",
-      "fields": [
-        "contents.default"
-      ]
+    "match": {
+      "contents.default": "オリンピック大会"
     }
   }
 }
@@ -131,11 +122,8 @@ GET /olympics/_search
 GET /olympics/_search
 {
   "query": {
-    "multi_match": {
-      "query": "奥运会",
-      "fields": [
-        "contents.default"
-      ]
+    "match": {
+      "contents.default": "奥运会"
     }
   }
 }
@@ -145,11 +133,8 @@ GET /olympics/_search
 GET /olympics/_search
 {
   "query": {
-    "multi_match": {
-      "query": "올림픽대회",
-      "fields": [
-        "contents.default.icu"
-      ]
+    "match": {
+      "contents.default.icu": "올림픽대회"
     }
   }
 }
@@ -158,11 +143,8 @@ GET /olympics/_search
 GET /olympics/_search
 {
   "query": {
-    "multi_match": {
-      "query": "Olympic Games",
-      "fields": [
-        "contents.default.icu"
-      ]
+    "match": {
+      "contents.default.icu": "Olympic Games"
     }
   }
 }
@@ -171,11 +153,8 @@ GET /olympics/_search
 GET /olympics/_search
 {
   "query": {
-    "multi_match": {
-      "query": "オリンピック大会",
-      "fields": [
-        "contents.default.icu"
-      ]
+    "match": {
+      "contents.default.icu": "オリンピック大会"
     }
   }
 }
@@ -184,11 +163,8 @@ GET /olympics/_search
 GET /olympics/_search
 {
   "query": {
-    "multi_match": {
-      "query": "奥运会",
-      "fields": [
-        "contents.default.icu"
-      ]
+    "match": {
+      "contents.default.icu": "奥运会"
     }
   }
 }
@@ -200,6 +176,7 @@ POST /olympics/_search
   "query": {
     "multi_match": {
       "query": "올림픽대회",
+      "type": "best_fields",
       "fields": [
         "contents.en",
         "contents.cjk"
@@ -214,6 +191,7 @@ POST /olympics/_search
   "query": {
     "multi_match": {
       "query": "Olympic Games",
+      "type": "best_fields",
       "fields": [
         "contents.en",
         "contents.cjk"
@@ -228,6 +206,7 @@ POST /olympics/_search
   "query": {
     "multi_match": {
       "query": "オリンピック大会",
+      "type": "best_fields",
       "fields": [
         "contents.en",
         "contents.cjk"
@@ -242,6 +221,7 @@ POST /olympics/_search
   "query": {
     "multi_match": {
       "query": "奥运会",
+      "type": "best_fields",
       "fields": [
         "contents.en",
         "contents.cjk"
@@ -257,6 +237,7 @@ POST /olympics/_search
   "query": {
     "multi_match": {
       "query": "올림픽대회",
+      "type": "best_fields",
       "fields": [
         "contents.en",
         "contents.ja",
@@ -273,6 +254,7 @@ POST /olympics/_search
   "query": {
     "multi_match": {
       "query": "Olympic Games",
+      "type": "best_fields",
       "fields": [
         "contents.en",
         "contents.ja",
@@ -289,6 +271,7 @@ POST /olympics/_search
   "query": {
     "multi_match": {
       "query": "オリンピック大会",
+      "type": "best_fields",
       "fields": [
         "contents.en",
         "contents.ja",
@@ -305,6 +288,7 @@ POST /olympics/_search
   "query": {
     "multi_match": {
       "query": "奥运会",
+      "type": "best_fields",
       "fields": [
         "contents.en",
         "contents.ja",

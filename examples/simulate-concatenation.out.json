@@ -1,0 +1,33 @@
+{
+  "docs" : [
+    {
+      "doc" : {
+        "_index" : "_index",
+        "_type" : "_doc",
+        "_id" : "_id",
+        "_source" : {
+          "body_by_lang" : {
+            "en" : """\"The Rain in Spain\" is a song from the musical My Fair Lady, with music by Frederick Loewe and lyrics by Alan Jay Lerner. The song was published in 1956, sounding similar to piano trio in C minor 3rd movement by Josep Suk."""
+          },
+          "topics" : [
+            "Song",
+            "Movie",
+            "Soundtrack",
+            "Musical",
+            "My Fair Lady"
+          ],
+          "language" : {
+            "code" : "en",
+            "supported" : true
+          },
+          "title" : "The Rain in Spain",
+          "body" : """"The Rain in Spain" is a song from the musical My Fair Lady, with music by Frederick Loewe and lyrics by Alan Jay Lerner. The song was published in 1956, sounding similar to piano trio in C minor 3rd movement by Josep Suk.""",
+          "url" : "https://en.wikipedia.org/wiki/The_Rain_in_Spain"
+        },
+        "_ingest" : {
+          "timestamp" : "2020-01-23T13:41:12.113321Z"
+        }
+      }
+    }
+  ]
+}

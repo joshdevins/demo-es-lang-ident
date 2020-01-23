@@ -15,8 +15,8 @@ DEFAULT_URL = 'http://localhost:9200'
 
 def search_by_field(es, field, query):
     return es.search('lang-per-field', body={
-        "query": {
-            "match": {
+        'query': {
+            'match': {
                 field: query
             }
         }
@@ -25,16 +25,26 @@ def search_by_field(es, field, query):
 
 def search_by_fields(es, query):
     return es.search('lang-per-field', body={
-        "query": {
-            "multi_match": {
-                "query": query,
-                "fields": [
-                    "contents.de",
-                    "contents.en",
-                    "contents.ja",
-                    "contents.ko",
-                    "contents.zh"
-                ]
+        'query': {
+            'bool': {
+                'must': {
+                    'multi_match': {
+                        'query': query,
+                        'best_fields': True,
+                        'fields': [
+                            'contents.de',
+                            'contents.en',
+                            'contents.ja',
+                            'contents.ko',
+                            'contents.zh'
+                        ]
+                    },
+                    'filter': {
+                        'term': {
+                            'contents.supported': True
+                        }
+                    }
+                }
             }
         }
     })
@@ -42,9 +52,9 @@ def search_by_fields(es, query):
 
 def search_by_indices(es, query):
     return es.search('lang-per-index_*', body={
-        "query": {
-            "match": {
-                "contents.text": query
+        'query': {
+            'match': {
+                'contents.text': query
             }
         }
     })
